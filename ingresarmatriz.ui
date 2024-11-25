@@ -24,7 +24,8 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(24, 18, 43);</string>
+     <string notr="true">background-color: rgb(24, 18, 43);
+color: white;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -135,6 +136,7 @@ QTableWidget{
 color: white;
 background-color: #635985; 
 font-weight: bold;
+font-size: 15px;
 }
 QTableWidget::item:selected {
 background-color: black;
@@ -240,7 +242,7 @@ border-radius: 10px;</string>
       <string>Gauss</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverGauss_2">
+    <widget class="QPushButton" name="resolverGaussJordan">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -259,7 +261,7 @@ border-radius: 10px;</string>
       <string>Gauss-Jordan</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverGauss_3">
+    <widget class="QPushButton" name="resolverCramer">
      <property name="geometry">
       <rect>
        <x>410</x>
@@ -278,7 +280,7 @@ border-radius: 10px;</string>
       <string>Cramer</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverGauss_4">
+    <widget class="QPushButton" name="resolverInversa">
      <property name="geometry">
       <rect>
        <x>510</x>
