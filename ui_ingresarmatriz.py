@@ -89,7 +89,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem7 = QTableWidgetItem()
         self.tablaMatriz.setItem(0, 2, __qtablewidgetitem7)
         self.tablaMatriz.setObjectName(u"tablaMatriz")
-        self.tablaMatriz.setGeometry(QRect(40, 130, 561, 192))
+        self.tablaMatriz.setGeometry(QRect(40, 130, 338, 88))
         self.tablaMatriz.setStyleSheet(u"QHeaderView::section { background-color: #635985; \n"
 "color: white;             \n"
 "font-weight: bold;\n"
@@ -152,7 +152,8 @@ class Ui_MainWindow(object):
         #Conexión de botones
         self.aplicarMatriz.clicked.connect(self.actualizarTabla)
         QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
+        
+        # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
@@ -186,12 +187,15 @@ class Ui_MainWindow(object):
     def actualizarTabla(self):
         tipo = self.tipoMatriz.currentIndex()
         if tipo == 0:  # 2x2
+            self.tablaMatriz.setGeometry(QRect(40, 130, 338, 88))
             self.tablaMatriz.setRowCount(2)
             self.tablaMatriz.setColumnCount(3)
         elif tipo == 1:  # 3x3
+            self.tablaMatriz.setGeometry(QRect(40, 130, 435, 118))
             self.tablaMatriz.setRowCount(3)
             self.tablaMatriz.setColumnCount(4)
         elif tipo == 2:  # 4x4
+            self.tablaMatriz.setGeometry(QRect(40, 130, 540, 150))
             self.tablaMatriz.setRowCount(4)
             self.tablaMatriz.setColumnCount(5)
 
@@ -208,6 +212,7 @@ class Ui_MainWindow(object):
         # Configurar los encabezados de las filas
         for i in range(self.tablaMatriz.rowCount()):
             self.tablaMatriz.setVerticalHeaderItem(i, QTableWidgetItem(f"Eq {i + 1}"))
+    
 
 # Main method
 if __name__ == "__main__":
