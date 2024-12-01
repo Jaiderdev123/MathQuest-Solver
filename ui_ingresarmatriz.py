@@ -22,7 +22,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
+            MainWindow.setObjectName(u"Matrices")
         MainWindow.resize(610, 401)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -43,7 +43,6 @@ class Ui_MainWindow(object):
         self.tipoMatriz = QComboBox(self.frame)
         self.tipoMatriz.addItem("")
         self.tipoMatriz.addItem("")
-        self.tipoMatriz.addItem("")
         self.tipoMatriz.setObjectName(u"tipoMatriz")
         self.tipoMatriz.setGeometry(QRect(430, 30, 171, 31))
         font = QFont()
@@ -60,10 +59,13 @@ class Ui_MainWindow(object):
         self.aplicarMatriz = QPushButton(self.frame)
         self.aplicarMatriz.setObjectName(u"aplicarMatriz")
         self.aplicarMatriz.setGeometry(QRect(430, 70, 171, 31))
-        self.aplicarMatriz.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
+        self.aplicarMatriz.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
+"border-radius: 10px;\n}"
+"QPushButton:hover {\n"
+"background-color: #a49bb0;\n"
+                                          "}\n")
         self.tablaMatriz = QTableWidget(self.frame)
         if (self.tablaMatriz.columnCount() < 3):
             self.tablaMatriz.setColumnCount(3)
@@ -118,31 +120,24 @@ class Ui_MainWindow(object):
         self.resolverGauss = QPushButton(self.frame)
         self.resolverGauss.setObjectName(u"resolverGauss")
         self.resolverGauss.setGeometry(QRect(180, 330, 91, 31))
-        self.resolverGauss.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
+        self.resolverGauss.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
+"border-radius: 10px;\n}"
+"QPushButton:hover {\n"
+"background-color: #a49bb0;\n"
+                                          "}\n")
         self.resolverGaussJordan = QPushButton(self.frame)
         self.resolverGaussJordan.setObjectName(u"resolverGaussJordan")
         self.resolverGaussJordan.setGeometry(QRect(280, 330, 121, 31))
-        self.resolverGaussJordan.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
+        self.resolverGaussJordan.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
-        self.resolverCramer = QPushButton(self.frame)
-        self.resolverCramer.setObjectName(u"resolverCramer")
-        self.resolverCramer.setGeometry(QRect(410, 330, 91, 31))
-        self.resolverCramer.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
-        self.resolverInversa = QPushButton(self.frame)
-        self.resolverInversa.setObjectName(u"resolverInversa")
-        self.resolverInversa.setGeometry(QRect(510, 330, 91, 31))
-        self.resolverInversa.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
+"border-radius: 10px;\n}"
+"QPushButton:hover {\n"
+"background-color: #a49bb0;\n"
+                                          "}\n")
+        
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -160,7 +155,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Seleccione el tipo de matriz:", None))
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
-        self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
 
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
@@ -181,8 +175,7 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
         self.resolverGauss.setText(QCoreApplication.translate("MainWindow", u"Gauss", None))
         self.resolverGaussJordan.setText(QCoreApplication.translate("MainWindow", u"Gauss-Jordan", None))
-        self.resolverCramer.setText(QCoreApplication.translate("MainWindow", u"Cramer", None))
-        self.resolverInversa.setText(QCoreApplication.translate("MainWindow", u"Inversa", None))
+        
 
     def actualizarTabla(self):
         tipo = self.tipoMatriz.currentIndex()
@@ -212,14 +205,18 @@ class Ui_MainWindow(object):
         # Configurar los encabezados de las filas
         for i in range(self.tablaMatriz.rowCount()):
             self.tablaMatriz.setVerticalHeaderItem(i, QTableWidgetItem(f"Eq {i + 1}"))
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
     
 
 # Main method
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec())

@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QStatusBar, QWidget)
-import iconos_rc
+import rc_iconos
+import ui_ingresarmatriz
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -96,3 +97,24 @@ class Ui_MainWindow(object):
         self.matrices.setText("")
     # retranslateUi
 
+        
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.matrices.clicked.connect(self.abrirVentanaMatrices)
+    
+    def abrirVentanaMatrices(self):
+        self.close()
+        self.ingresar_matriz = ui_ingresarmatriz.MainWindow()
+        self.ingresar_matriz.show()
+            
+    
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
