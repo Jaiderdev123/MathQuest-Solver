@@ -23,6 +23,7 @@ import numpy as np
 import re
 import math
 import rc_iconos
+import ui_ecuacion_invalida
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -431,38 +432,49 @@ class MainWindow(QMainWindow):
         self.ui.arc_bt.show()
     
     def add_operation(self, operation):
+        current_ecuation = self.ui.ecuacion.text()
+        cursor_position = self.ui.ecuacion.cursorPosition()
+        insert_operation = ""
         if operation == "sqrt":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "√()")
+            insert_operation = "√()"
         elif operation == "ln":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "ln()")
+            insert_operation = "ln()"
         elif operation == "power":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "^")
+            insert_operation = "^"
         elif operation == "sen":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "sen()")
+            insert_operation = "sen()"
         elif operation == "cos":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "cos()")
+            insert_operation = "cos()"
         elif operation == "tan":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "tan()")
+            insert_operation = "tan()"
         elif operation == "cot":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "cot()")
+            insert_operation = "cot()"
         elif operation == "csc":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "csc()")
+            insert_operation = "csc()"
         elif operation == "sec":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "sec()")
+            insert_operation = "sec()"
         elif operation == "arcsen":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "sen⁻¹()")
+            insert_operation = "sen⁻¹()"
         elif operation == "arccos":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "cos⁻¹()")
+            insert_operation = "cos⁻¹()"
         elif operation == "arctan":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "tan⁻¹()")
+            insert_operation = "tan⁻¹()"
         elif operation == "arccot":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "cot⁻¹()")
+            insert_operation = "cot⁻¹()"
         elif operation == "arccsc":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "csc⁻¹()")
+            insert_operation = "csc⁻¹()"
         elif operation == "arcsec":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "sec⁻¹()")
+            insert_operation = "sec⁻¹()"
         elif operation == "pi":
-            self.ui.ecuacion.setText(self.ui.ecuacion.text() + "π")
+            insert_operation = "π"
+        new_text = (
+             current_ecuation[:cursor_position]
+            + insert_operation  
+            + current_ecuation[cursor_position:]  
+        )
+        self.ui.ecuacion.setText(new_text)
+        
+        self.ui.ecuacion.setCursorPosition(cursor_position + len(insert_operation))
         self.ui.ecuacion.setFocus()
 
     def verificar(self):
@@ -473,9 +485,9 @@ class MainWindow(QMainWindow):
         if "ln" in ecuacion:
                 ecuacion = re.sub(r"ln(\w+|\(.*?\))", r"np.log(\1)", ecuacion)
         if "^" in ecuacion:
-                ecuacion = re.sub(r"(\w+|\(.*?\))\^(\w+|\(.*?\))", r"(\1)**(\2)", ecuacion)
+                ecuacion = re.sub(r"(\w+|\(.*?\))\^(\w+|\(.*?\))", r"\1**\2", ecuacion)
         if "sen(" in ecuacion:
-                ecuacion = re.sub(r"sen(", r"np.sin(", ecuacion)
+                ecuacion = re.sub(r"sen\(", r"np.sin(", ecuacion)
         if "cos(" in ecuacion:
                 ecuacion = re.sub(r"cos\(", r"np.cos(", ecuacion)
         if "tan(" in ecuacion:
@@ -504,7 +516,10 @@ class MainWindow(QMainWindow):
             print(ecuacion)
             print(eval(ecuacion))
         except Exception as e:
-            print("invalid ecuation")
+            self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
+            self.ingresar_ecuacion.exec()
+            self.ui.ecuacion.setText("")
+
          
 if __name__ == "__main__":
     import sys
