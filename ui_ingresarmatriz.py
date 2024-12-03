@@ -43,7 +43,6 @@ class Ui_MainWindow(object):
         self.tipoMatriz = QComboBox(self.frame)
         self.tipoMatriz.addItem("")
         self.tipoMatriz.addItem("")
-        self.tipoMatriz.addItem("")
         self.tipoMatriz.setObjectName(u"tipoMatriz")
         self.tipoMatriz.setGeometry(QRect(430, 30, 171, 31))
         font = QFont()
@@ -110,36 +109,22 @@ class Ui_MainWindow(object):
         self.tablaMatriz.horizontalHeader().setCascadingSectionResizes(False)
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(40, 330, 131, 31))
+        self.label_6.setGeometry(QRect(80, 330, 131, 31))
         self.label_6.setLayoutDirection(Qt.LeftToRight)
         self.label_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 900 15pt \"Segoe UI Black\";")
         self.label_6.setAlignment(Qt.AlignCenter)
         self.resolverGauss = QPushButton(self.frame)
         self.resolverGauss.setObjectName(u"resolverGauss")
-        self.resolverGauss.setGeometry(QRect(180, 330, 91, 31))
+        self.resolverGauss.setGeometry(QRect(240, 330, 91, 31))
         self.resolverGauss.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 10px;")
         self.resolverGaussJordan = QPushButton(self.frame)
         self.resolverGaussJordan.setObjectName(u"resolverGaussJordan")
-        self.resolverGaussJordan.setGeometry(QRect(280, 330, 121, 31))
+        self.resolverGaussJordan.setGeometry(QRect(370, 330, 121, 31))
         self.resolverGaussJordan.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
-        self.resolverCramer = QPushButton(self.frame)
-        self.resolverCramer.setObjectName(u"resolverCramer")
-        self.resolverCramer.setGeometry(QRect(410, 330, 91, 31))
-        self.resolverCramer.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
-        self.resolverInversa = QPushButton(self.frame)
-        self.resolverInversa.setObjectName(u"resolverInversa")
-        self.resolverInversa.setGeometry(QRect(510, 330, 91, 31))
-        self.resolverInversa.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 10px;")
@@ -160,7 +145,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Seleccione el tipo de matriz:", None))
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
-        self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"X1", None));
@@ -178,8 +162,6 @@ class Ui_MainWindow(object):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
         self.resolverGauss.setText(QCoreApplication.translate("MainWindow", u"Gauss", None))
         self.resolverGaussJordan.setText(QCoreApplication.translate("MainWindow", u"Gauss-Jordan", None))
-        self.resolverCramer.setText(QCoreApplication.translate("MainWindow", u"Cramer", None))
-        self.resolverInversa.setText(QCoreApplication.translate("MainWindow", u"Inversa", None))
 
     def actualizarTabla(self):
         tipo = self.tipoMatriz.currentIndex()
