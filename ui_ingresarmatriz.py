@@ -43,6 +43,7 @@ class Ui_MainWindow(object):
         self.tipoMatriz = QComboBox(self.frame)
         self.tipoMatriz.addItem("")
         self.tipoMatriz.addItem("")
+        self.tipoMatriz.addItem("")
         self.tipoMatriz.setObjectName(u"tipoMatriz")
         self.tipoMatriz.setGeometry(QRect(430, 30, 171, 31))
         font = QFont()
@@ -145,6 +146,7 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Seleccione el tipo de matriz:", None))
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
+        self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"X1", None));
