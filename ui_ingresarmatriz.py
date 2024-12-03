@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ingresarmatriziKqEdt.ui'
+## Form generated from reading UI file 'ingresarmatrizKbWZCK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.3
 ##
@@ -17,13 +17,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
     QLabel, QMainWindow, QPushButton, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QWidget, QMessageBox, QDialog)
+    QStatusBar, QTableWidget, QTableWidgetItem, QWidget, QDialog, QMessageBox)
+import iconos
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(610, 401)
+        MainWindow.setFixedSize(610, 401)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frame = QFrame(self.centralwidget)
@@ -89,7 +91,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem7 = QTableWidgetItem()
         self.tablaMatriz.setItem(0, 2, __qtablewidgetitem7)
         self.tablaMatriz.setObjectName(u"tablaMatriz")
-        self.tablaMatriz.setGeometry(QRect(40, 130, 338, 88))
+        self.tablaMatriz.setGeometry(QRect(40, 130, 561, 192))
         self.tablaMatriz.setStyleSheet(u"QHeaderView::section { background-color: #635985; \n"
 "color: white;             \n"
 "font-weight: bold;\n"
@@ -129,31 +131,16 @@ class Ui_MainWindow(object):
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 10px;")
-        self.resolverCramer = QPushButton(self.frame)
-        self.resolverCramer.setObjectName(u"resolverCramer")
-        self.resolverCramer.setGeometry(QRect(410, 330, 91, 31))
-        self.resolverCramer.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
-        self.resolverInversa = QPushButton(self.frame)
-        self.resolverInversa.setObjectName(u"resolverInversa")
-        self.resolverInversa.setGeometry(QRect(510, 330, 91, 31))
-        self.resolverInversa.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 10px;")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
         self.retranslateUi(MainWindow)
-        #Conexión de botones
         self.resolverGaussJordan.clicked.connect(self.resolverGauss_Jordan)
         self.aplicarMatriz.clicked.connect(self.actualizarTabla)
         QMetaObject.connectSlotsByName(MainWindow)
-
-        # setupUi
+    # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
@@ -161,6 +148,7 @@ class Ui_MainWindow(object):
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
         self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
+
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"X1", None));
@@ -172,14 +160,17 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Eq 1", None));
         ___qtablewidgetitem4 = self.tablaMatriz.verticalHeaderItem(1)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Eq 2", None));
+
         __sortingEnabled = self.tablaMatriz.isSortingEnabled()
         self.tablaMatriz.setSortingEnabled(False)
         self.tablaMatriz.setSortingEnabled(__sortingEnabled)
+
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
         self.resolverGauss.setText(QCoreApplication.translate("MainWindow", u"Gauss", None))
         self.resolverGaussJordan.setText(QCoreApplication.translate("MainWindow", u"Gauss-Jordan", None))
-        self.resolverCramer.setText(QCoreApplication.translate("MainWindow", u"Cramer", None))
-        self.resolverInversa.setText(QCoreApplication.translate("MainWindow", u"Inversa", None))
+    # retranslateUi
+
+
 
     def actualizarTabla(self):
         tipo = self.tipoMatriz.currentIndex()

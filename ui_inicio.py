@@ -83,7 +83,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-
+        self.matrices.clicked.connect(self.abrirMatrices)
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -96,25 +96,17 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Resolver sistemas de ecuaciones (matrices)", None))
         self.matrices.setText("")
     # retranslateUi
-
-        
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.ui.matrices.clicked.connect(self.abrirVentanaMatrices)
-    
-    def abrirVentanaMatrices(self):
-        self.close()
-        self.ingresar_matriz = ui_ingresarmatriz.MainWindow()
-        self.ingresar_matriz.show()
-            
-    
+    def abrirMatrices(self):
+        self.ventana = QMainWindow()
+        self.ui = ui_ingresarmatriz.Ui_MainWindow()
+        self.ui.setupUi(self.ventana)
+        self.ventana.show()
+#Main method
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec())

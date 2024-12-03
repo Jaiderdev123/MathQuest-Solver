@@ -106,10 +106,26 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label_6.setText(QCoreApplication.translate("Form", u"Pasos: ", None))
+        
+        # Configurar encabezados dinámicamente
+        columnas = self.tablaMatriz.columnCount()
+        filas = self.tablaMatriz.rowCount()
+        
+        # Configurar encabezados de columnas
+        headerColumnas = []
+        for j in range(columnas - 1):
+            headerColumnas.append(f"X{j + 1}")
+        headerColumnas.append("B")
+        self.tablaMatriz.setHorizontalHeaderLabels(headerColumnas)
+        
+        # Configurar encabezados de filas
+        headerFilas = [f"Eq {i + 1}" for i in range(filas)]
+        self.tablaMatriz.setVerticalHeaderLabels(headerFilas)
+        
         self.pasosLabel.setText("")
         self.botonAnterior.setText("")
         self.botonSiguiente.setText("")
-        self.label.setText(QCoreApplication.translate("Form", u" Soluci\u00f3n:", None))
+        self.label.setText(QCoreApplication.translate("Form", u" Solución:", None))
         self.botonRegresar.setText("")
 
     def mostrar_pasos(self, iteraciones, pasos):
@@ -135,20 +151,16 @@ class Ui_Form(object):
         if self.indice < len(self.iteraciones) - 1:
             self.indice += 1
             self.mostrar_paso()
-            #Almacenar los datos de la ultima columna de la matriz en una lista
             self.resultado = []
             for i in range(len(self.iteraciones[self.indice])):
                 self.resultado.append(self.iteraciones[self.indice][i][-1])
         else:
             self.enviar_resultados(self.resultado)
-            
     
     def anterior_paso(self):
         if self.indice > 0:
             self.indice -= 1
             self.mostrar_paso()
-        #Ocultar esta ventana y mostrar la ventana de solucion
-
 
     def enviar_resultados(self, resultado):
         solucionresultado.set_solucion(self, resultado)
@@ -161,3 +173,12 @@ class Ui_Form(object):
         self.ventanaSolucion.activateWindow()
         self.ventanaSolucion.show()
         self.botonSiguiente.setEnabled(False)
+#Main method
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    Form = QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec())
