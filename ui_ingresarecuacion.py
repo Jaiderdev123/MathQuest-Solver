@@ -27,6 +27,7 @@ import re
 import math
 import rc_iconos
 import ui_ecuacion_invalida
+import ui_resolver_biseccion
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -483,7 +484,11 @@ class MainWindow(QMainWindow):
     def resolverBiseccion(self):
         expresion_convertida = self.convertir_expresion()
         if expresion_convertida != None:
-             print("Ahora se resolverá por el método de bisección")
+              print("Ahora se resolverá por el método de bisección")
+              self.ventana = ui_resolver_biseccion.MainWindow(expresion_convertida, self.ui.ecuacion.text())
+              self.ui = ui_resolver_biseccion.Ui_MainWindow()
+              self.ventana.show()
+              self.close()
         else:
             self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
             self.ingresar_ecuacion.exec()
@@ -573,7 +578,7 @@ class MainWindow(QMainWindow):
         #     self.ingresar_ecuacion.exec()
         #     self.ui.ecuacion.setText("")
             
-            
+
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
