@@ -112,21 +112,21 @@ class Ui_MainWindow(object):
         self.tablaMatriz.horizontalHeader().setCascadingSectionResizes(False)
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(40, 330, 131, 31))
+        self.label_6.setGeometry(QRect(80, 330, 131, 31))
         self.label_6.setLayoutDirection(Qt.LeftToRight)
         self.label_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 900 15pt \"Segoe UI Black\";")
         self.label_6.setAlignment(Qt.AlignCenter)
         self.resolverGauss = QPushButton(self.frame)
         self.resolverGauss.setObjectName(u"resolverGauss")
-        self.resolverGauss.setGeometry(QRect(180, 330, 91, 31))
+        self.resolverGauss.setGeometry(QRect(240, 330, 91, 31))
         self.resolverGauss.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 10px;")
         self.resolverGaussJordan = QPushButton(self.frame)
         self.resolverGaussJordan.setObjectName(u"resolverGaussJordan")
-        self.resolverGaussJordan.setGeometry(QRect(280, 330, 121, 31))
+        self.resolverGaussJordan.setGeometry(QRect(370, 330, 121, 31))
         self.resolverGaussJordan.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
