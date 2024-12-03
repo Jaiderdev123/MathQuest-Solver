@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>volver.png</file>
+    <file>regresar.png</file>
+    <file>siguiente.png</file>
     <file>matrices.png</file>
     <file>fx.png</file>
   </qresource>

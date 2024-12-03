@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
     QLabel, QMainWindow, QPushButton, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QWidget)
+    QStatusBar, QTableWidget, QTableWidgetItem, QWidget, QMessageBox, QDialog)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -147,12 +147,12 @@ class Ui_MainWindow(object):
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
         self.retranslateUi(MainWindow)
         #Conexión de botones
+        self.resolverGaussJordan.clicked.connect(self.resolverGauss_Jordan)
         self.aplicarMatriz.clicked.connect(self.actualizarTabla)
         QMetaObject.connectSlotsByName(MainWindow)
-        
+
         # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -161,7 +161,6 @@ class Ui_MainWindow(object):
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
         self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
-
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"X1", None));
@@ -173,11 +172,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Eq 1", None));
         ___qtablewidgetitem4 = self.tablaMatriz.verticalHeaderItem(1)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Eq 2", None));
-
         __sortingEnabled = self.tablaMatriz.isSortingEnabled()
         self.tablaMatriz.setSortingEnabled(False)
         self.tablaMatriz.setSortingEnabled(__sortingEnabled)
-
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
         self.resolverGauss.setText(QCoreApplication.translate("MainWindow", u"Gauss", None))
         self.resolverGaussJordan.setText(QCoreApplication.translate("MainWindow", u"Gauss-Jordan", None))
@@ -212,9 +209,57 @@ class Ui_MainWindow(object):
         # Configurar los encabezados de las filas
         for i in range(self.tablaMatriz.rowCount()):
             self.tablaMatriz.setVerticalHeaderItem(i, QTableWidgetItem(f"Eq {i + 1}"))
-    
+    def resolverGauss_Jordan(self):
+        # Obtener los coeficientes de la tabla
+        filas = self.tablaMatriz.rowCount()
+        columnas = self.tablaMatriz.columnCount()
+        matriz = []
+        for i in range(filas):
+            fila = []
+            for j in range(columnas):
+                item = self.tablaMatriz.item(i, j)
+                if item and item.text():
+                    try:
+                        valor = float(item.text())
+                    except ValueError:
+                        QMessageBox.warning(None, "Error", "Por favor, ingrese solo números.")
+                        return
+                    fila.append(valor)
+                else:
+                    QMessageBox.warning(None, "Error", "Complete todos los campos de la matriz.")
+                    return
+            matriz.append(fila)
 
-# Main method
+        # Inicializar listas para las iteraciones y pasos
+        iteraciones = []
+        pasos = []
+
+        # Implementar el método Gauss-Jordan
+        n = len(matriz[0]) - 1  # Número de variables
+        for i in range(n):
+            # Verificar que el pivote no sea cero
+            if matriz[i][i] == 0:
+                QMessageBox.warning(None, "Error", f"El pivote en la fila {i+1} es cero, no se puede continuar.")
+                return
+            # Hacer el pivote igual a 1
+            pivote = matriz[i][i]
+            matriz[i] = [elemento / pivote for elemento in matriz[i]]
+            pasos.append(f"F{i+1} = F{i+1} / {pivote}")
+            iteraciones.append([fila[:] for fila in matriz])
+            # Hacer ceros en la columna i
+            for j in range(filas):
+                if j != i:
+                    factor = matriz[j][i]
+                    matriz[j] = [elem_j - factor * elem_i for elem_j, elem_i in zip(matriz[j], matriz[i])]
+                    pasos.append(f"F{j+1} = F{j+1} - ({factor}) * F{i+1}")
+                    iteraciones.append([fila[:] for fila in matriz])
+        from ui_pasos import Ui_Form
+        MainWindow.close()
+        dialogo = QDialog()
+        ui = Ui_Form()
+        ui.setupUi(dialogo)
+        ui.mostrar_pasos(iteraciones, pasos)
+        dialogo.exec()
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
