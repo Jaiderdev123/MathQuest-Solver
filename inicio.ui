@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
+    <width>652</width>
     <height>590</height>
    </rect>
   </property>
@@ -27,10 +27,10 @@
      <string notr="true">background-color: rgb(24, 18, 43);</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::Shape::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Shadow::Raised</enum>
     </property>
     <widget class="QLabel" name="titulo">
      <property name="geometry">
@@ -42,7 +42,7 @@
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
@@ -52,7 +52,7 @@ font: 40pt &quot;Night Machine&quot;;</string>
       <string>MathQuest Solver</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -65,7 +65,7 @@ font: 40pt &quot;Night Machine&quot;;</string>
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
@@ -75,7 +75,7 @@ font: 900 20pt &quot;Segoe UI Black&quot;;</string>
       <string>Seleccione el tipo de operacion:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QPushButton" name="ecuaciones">
@@ -114,7 +114,7 @@ font: 900 20pt &quot;Segoe UI Black&quot;;</string>
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
@@ -124,7 +124,7 @@ font: 900 14pt &quot;Segoe UI Black&quot;;</string>
       <string>Calcular raices de ecuaciones</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -137,7 +137,7 @@ font: 900 14pt &quot;Segoe UI Black&quot;;</string>
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
@@ -147,7 +147,7 @@ font: 900 14pt &quot;Segoe UI Black&quot;;</string>
       <string>Resolver sistemas de ecuaciones (matrices)</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QPushButton" name="matrices">

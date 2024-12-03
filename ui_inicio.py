@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QStatusBar, QWidget)
 import rc_iconos
 import ui_ingresarmatriz
+import ui_ingresarecuacion
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -105,11 +106,17 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.matrices.clicked.connect(self.abrirVentanaMatrices)
+        self.ui.ecuaciones.clicked.connect(self.abrirVentanaEcuaciones)
     
     def abrirVentanaMatrices(self):
         self.close()
         self.ingresar_matriz = ui_ingresarmatriz.MainWindow()
         self.ingresar_matriz.show()
+
+    def abrirVentanaEcuaciones(self):
+        self.close()
+        self.ingresar_ecuacion = ui_ingresarecuacion.MainWindow()
+        self.ingresar_ecuacion.show()
             
     
 if __name__ == "__main__":

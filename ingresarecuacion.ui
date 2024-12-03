@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>401</height>
+    <width>608</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>-10</x>
+      <x>-25</x>
       <y>0</y>
       <width>621</width>
       <height>591</height>
@@ -28,189 +28,45 @@
 color: white;</string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+     <enum>QFrame::Shape::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Shadow::Raised</enum>
     </property>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>20</y>
-       <width>381</width>
+       <y>70</y>
+       <width>581</width>
        <height>51</height>
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
-font: 900 20pt &quot;Segoe UI Black&quot;;</string>
+font: 900 13pt &quot;Segoe UI Black&quot;;</string>
      </property>
      <property name="text">
-      <string>Seleccione el tipo de matriz:</string>
+      <string>Ingrese la ecuación a resolver por métodos abiertos a continuación:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
-    </widget>
-    <widget class="QComboBox" name="tipoMatriz">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>30</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Segoe UI Black</family>
-       <pointsize>12</pointsize>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
-font: 900 12pt &quot;Segoe UI Black&quot;;
-color: rgb(255, 255, 255);
-border-radius: 5px;</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>2 X 2</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>3 X 3</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>4 X 4</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QPushButton" name="aplicarMatriz">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>70</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
-font: 900 12pt &quot;Segoe UI Black&quot;;
-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string>Aplicar</string>
-     </property>
-    </widget>
-    <widget class="QTableWidget" name="tablaMatriz">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>130</y>
-       <width>561</width>
-       <height>192</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QHeaderView::section { background-color: #635985; 
-color: white;             
-font-weight: bold;
-border-radius: 5px;
-}
-QTableWidget{
-color: white;
-background-color: #635985; 
-font-weight: bold;
-font-size: 15px;
-}
-QTableWidget::item:selected {
-background-color: black;
-color: white;  
-}
- </string>
-     </property>
-     <attribute name="horizontalHeaderVisible">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>false</bool>
-     </attribute>
-     <row>
-      <property name="text">
-       <string>Eq 1</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>Eq 2</string>
-      </property>
-     </row>
-     <column>
-      <property name="text">
-       <string>X1</string>
-      </property>
-      <property name="foreground">
-       <brush brushstyle="NoBrush">
-        <color alpha="255">
-         <red>255</red>
-         <green>255</green>
-         <blue>255</blue>
-        </color>
-       </brush>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>X2</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>B</string>
-      </property>
-     </column>
-     <item row="0" column="0">
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-     <item row="0" column="2">
-      <property name="text">
-       <string/>
-      </property>
-     </item>
     </widget>
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>330</y>
+       <x>90</x>
+       <y>360</y>
        <width>131</width>
        <height>31</height>
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
@@ -220,83 +76,541 @@ font: 900 15pt &quot;Segoe UI Black&quot;;</string>
       <string>Resolver por:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverGauss">
+    <widget class="QPushButton" name="resolverBiseccion ">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>330</y>
-       <width>91</width>
+       <x>260</x>
+       <y>360</y>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
 font: 900 12pt &quot;Segoe UI Black&quot;;
 color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
      </property>
      <property name="text">
-      <string>Gauss</string>
+      <string>Newton-Rhapson</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverGaussJordan">
+    <widget class="QPushButton" name="resolverFP">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>330</y>
+       <x>430</x>
+       <y>360</y>
        <width>121</width>
        <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
 font: 900 12pt &quot;Segoe UI Black&quot;;
 color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
      </property>
      <property name="text">
-      <string>Gauss-Jordan</string>
+      <string>Secante</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverCramer">
+    <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>410</x>
-       <y>330</y>
-       <width>91</width>
+       <x>150</x>
+       <y>140</y>
+       <width>351</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: white;
+font: 900 10pt &quot;Segoe UI&quot;;
+color:black;
+border-radius: 10px</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>220</y>
+       <width>411</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(68, 60, 104);
+border: 2px  solid black;
+border-radius: 10px</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="bt_sqrt">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>230</y>
+       <width>51</width>
        <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
 font: 900 12pt &quot;Segoe UI Black&quot;;
 color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
      </property>
      <property name="text">
-      <string>Cramer</string>
+      <string>√</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverInversa">
+    <widget class="QPushButton" name="log_bt">
      <property name="geometry">
       <rect>
-       <x>510</x>
-       <y>330</y>
-       <width>91</width>
+       <x>270</x>
+       <y>230</y>
+       <width>51</width>
        <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
 font: 900 12pt &quot;Segoe UI Black&quot;;
 color: rgb(255, 255, 255);
-border-radius: 10px;</string>
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
      </property>
      <property name="text">
-      <string>Inversa</string>
+      <string>log</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="power_bt">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>xʸ</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sen_bt">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>sen</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cos_bt">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>cos</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tan_bt">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>tan</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cot_bt">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>cot</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="csc_bt">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>csc</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sec_bt">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>sec</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arc_bt">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>280</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>modo arc</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pi_bt">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>π</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arcsen_bt">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc sen</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arccos_bt">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>230</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc cos</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arctan_bt">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc tan</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arccot_bt">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc cot</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arccsc_bt">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc csc</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arcsec_bt">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>280</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color: rgb(255, 170, 0);
+font: 900 8pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: rgb(254, 204, 25);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>arc sec</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="arc_bt_2">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>280</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+background-color:rgb(99, 89, 133);
+font: 900 12pt &quot;Segoe UI Black&quot;;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+}
+QPushButton:hover {
+background-color: #a49bb0;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>modo normal</string>
      </property>
     </widget>
    </widget>

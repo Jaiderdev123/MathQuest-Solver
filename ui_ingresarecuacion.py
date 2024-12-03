@@ -18,6 +18,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QStatusBar,
     QWidget)
+from sympy import (parse_expr, sympify, simplify, evalf, symbols, sin, cos, 
+tan, cot, csc, sec, asin, acos, atan, acot, asin, 
+acos, atan, acot, Eq, solve, ln, pi)
 from scipy import constants
 import numpy as np
 import re
@@ -53,10 +56,10 @@ class Ui_MainWindow(object):
         self.label_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 900 15pt \"Segoe UI Black\";")
         self.label_6.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.resolverNR = QPushButton(self.frame)
-        self.resolverNR.setObjectName(u"resolverNR")
-        self.resolverNR.setGeometry(QRect(260, 360, 151, 31))
-        self.resolverNR.setStyleSheet(u"QPushButton{\n"
+        self.resolverBiseccion  = QPushButton(self.frame)
+        self.resolverBiseccion .setObjectName(u"resolverBiseccion ")
+        self.resolverBiseccion .setGeometry(QRect(250, 360, 150, 31))
+        self.resolverBiseccion .setStyleSheet(u"QPushButton{\n"
 "background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -66,10 +69,10 @@ class Ui_MainWindow(object):
 "background-color: #a49bb0;\n"
 "}\n"
 "")
-        self.resolverSecante = QPushButton(self.frame)
-        self.resolverSecante.setObjectName(u"resolverSecante")
-        self.resolverSecante.setGeometry(QRect(430, 360, 121, 31))
-        self.resolverSecante.setStyleSheet(u"QPushButton{\n"
+        self.resolverFP = QPushButton(self.frame)
+        self.resolverFP.setObjectName(u"resolverFP")
+        self.resolverFP.setGeometry(QRect(430, 360, 150, 31))
+        self.resolverFP.setStyleSheet(u"QPushButton{\n"
 "background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -338,10 +341,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Ingrese la ecuaci\u00f3n a resolver por m\u00e9todos abiertos a continuaci\u00f3n:", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Ingrese la ecuaci\u00f3n a resolver por m\u00e9todos cerrados a continuaci\u00f3n:", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
-        self.resolverNR.setText(QCoreApplication.translate("MainWindow", u"Newton-Rhapson", None))
-        self.resolverSecante.setText(QCoreApplication.translate("MainWindow", u"Secante", None))
+        self.resolverBiseccion .setText(QCoreApplication.translate("MainWindow", u"Bisección", None))
+        self.resolverFP.setText(QCoreApplication.translate("MainWindow", u"Falsa posición", None))
         self.label.setText("")
         self.bt_sqrt.setText(QCoreApplication.translate("MainWindow", u"\u221a", None))
         self.ln_bt.setText(QCoreApplication.translate("MainWindow", u"ln", None))
@@ -395,8 +398,8 @@ class MainWindow(QMainWindow):
         self.ui.arccsc_bt.clicked.connect(lambda: self.add_operation("arccsc"))
         self.ui.arcsec_bt.clicked.connect(lambda: self.add_operation("arcsec"))
         self.ui.pi_bt.clicked.connect(lambda: self.add_operation("pi"))
-        self.ui.resolverNR.clicked.connect(self.verificar)
-        # self.ui.resolverSecante.clicked.connect(self.resolverSecante)
+        self.ui.resolverBiseccion.clicked.connect(self.resolverBiseccion)
+        self.ui.resolverFP.clicked.connect(self.resolverFP)
         
     
     def arc_mode(self):
@@ -477,49 +480,101 @@ class MainWindow(QMainWindow):
         self.ui.ecuacion.setCursorPosition(cursor_position + len(insert_operation))
         self.ui.ecuacion.setFocus()
 
-    def verificar(self):
+    def resolverBiseccion(self):
+        expresion_convertida = self.convertir_expresion()
+        if expresion_convertida != None:
+             print("Ahora se resolverá por el método de bisección")
+        else:
+            self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
+            self.ingresar_ecuacion.exec()
+            self.ui.ecuacion.setFocus()
+
+    def resolverFP(self):
+        expresion_convertida = self.convertir_expresion()
+        if expresion_convertida != None:
+             print("Ahora se resolverá por el método de falsa posición")
+        else:
+            self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
+            self.ingresar_ecuacion.exec()
+            self.ui.ecuacion.setFocus()
+
+    def convertir_expresion(self):
         ecuacion = self.ui.ecuacion.text()
         print(ecuacion)
         if "√" in ecuacion:
-                ecuacion = re.sub(r"√(\w+|\(.*?\))", r"math.sqrt(\1)", ecuacion)
+                ecuacion = re.sub(r"√(\w+|\(.*?\))", r"sqrt(\1)", ecuacion)
         if "ln" in ecuacion:
-                ecuacion = re.sub(r"ln(\w+|\(.*?\))", r"np.log(\1)", ecuacion)
+                ecuacion = re.sub(r"ln(\w+|\(.*?\))", r"log(\1)", ecuacion)
         if "^" in ecuacion:
                 ecuacion = re.sub(r"(\w+|\(.*?\))\^(\w+|\(.*?\))", r"\1**\2", ecuacion)
         if "sen(" in ecuacion:
-                ecuacion = re.sub(r"sen\(", r"np.sin(", ecuacion)
+                ecuacion = re.sub(r"sen\(", r"sin(", ecuacion)
         if "cos(" in ecuacion:
-                ecuacion = re.sub(r"cos\(", r"np.cos(", ecuacion)
+                ecuacion = re.sub(r"cos\(", r"cos(", ecuacion)
         if "tan(" in ecuacion:
-                ecuacion = re.sub(r"tan\(", r"np.tan(", ecuacion)
+                ecuacion = re.sub(r"tan\(", r"tan(", ecuacion)
         if "cot(" in ecuacion:
-                ecuacion = re.sub(r"cot\(", r"1/np.cot(", ecuacion)
+                ecuacion = re.sub(r"cot\(", r"1/cot(", ecuacion)
         if "csc(" in ecuacion:
-                ecuacion = re.sub(r"csc\(", r"1/np.sin(", ecuacion)
+                ecuacion = re.sub(r"csc\(", r"1/sin(", ecuacion)
         if "sec(" in ecuacion:
-                ecuacion = re.sub(r"sec\(", r"1/np.cos(", ecuacion)
+                ecuacion = re.sub(r"sec\(", r"1/cos(", ecuacion)
         if "sen⁻¹" in ecuacion:
-                ecuacion = re.sub(r"sen⁻¹", r"np.arcsin", ecuacion)
+                ecuacion = re.sub(r"sen⁻¹", r"asin", ecuacion)
         if "cos⁻¹" in ecuacion:
-                ecuacion = re.sub(r"cos⁻¹", r"np.arccos", ecuacion)
+                ecuacion = re.sub(r"cos⁻¹", r"acos", ecuacion)
         if "tan⁻¹" in ecuacion:
-                ecuacion = re.sub(r"tan⁻¹", r"np.arctan", ecuacion)
+                ecuacion = re.sub(r"tan⁻¹", r"atan", ecuacion)
         if "cot⁻¹" in ecuacion:
-                ecuacion = re.sub(r"cot⁻¹", r"1/np.arctan", ecuacion)
+                ecuacion = re.sub(r"cot⁻¹", r"1/atan", ecuacion)
         if "csc⁻¹" in ecuacion:
-                ecuacion = re.sub(r"csc⁻¹", r"1/np.arcsin", ecuacion)
+                ecuacion = re.sub(r"csc⁻¹", r"1/asin", ecuacion)
         if "sec⁻¹" in ecuacion:
-                ecuacion = re.sub(r"sec⁻¹", r"1/np.arccos", ecuacion)
+                ecuacion = re.sub(r"sec⁻¹", r"1/acos", ecuacion)
         if "π" in ecuacion:
-                ecuacion = re.sub(r"π", r"np.pi", ecuacion)
+                ecuacion = re.sub(r"π", r"pi", ecuacion)
+        print(ecuacion)
         try:
-            print(ecuacion)
-            print(eval(ecuacion))
-        except Exception as e:
+            if '=' in ecuacion:
+                lhs, rhs = ecuacion.split('=', 1)
+                ecuacion = f"{lhs} = {rhs}"
+                lhs, rhs = lhs.strip(), rhs.strip()
+                lhs, rhs = parse_expr(lhs), parse_expr(rhs)
+                lhs, rhs = sympify(lhs), sympify(rhs)
+                ecuacion_formatoSPY = Eq(lhs, rhs)
+                print(f"¿La ecuación es válida? {isinstance(ecuacion_formatoSPY, Eq)}")
+                if isinstance(ecuacion_formatoSPY, Eq):
+                    return ecuacion_formatoSPY
+                else:
+                    print("No es ecuación válida")
+                    return None
+            else:
+                print("No tiene simbolo =")
+                return None
+        except:
             self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
             self.ingresar_ecuacion.exec()
-            self.ui.ecuacion.setText("")
+            self.ui.ecuacion.setFocus()
+        # solved = solve(ecuacion)
+        # print(solved)
+        # expression_parsed = parse_expr(ecuacion)
+        # print(f"parsed expression: {expression_parsed}")
+        # solved_expression = expression_parsed.evalf()
+        # print(f"solved expression: {solved_expression}")
+        # print(isinstance(expression_parsed, Eq))
+        # try:
+        #     expression_parsed = parse_expr(ecuacion)
+        #     print(f"parsed expression: {expression_parsed}")
+        #     print(ecuacion)
+        #     print(eval(ecuacion))
+        #     
+        # except Exception as e:
+        #     self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
+        #     self.ingresar_ecuacion.exec()
+        #     self.ui.ecuacion.setText("")
+            
 
+    
          
 if __name__ == "__main__":
     import sys
