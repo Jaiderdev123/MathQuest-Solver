@@ -17,12 +17,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHeaderView,
     QLabel, QMainWindow, QPushButton, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QWidget)
+    QStatusBar, QTableWidget, QTableWidgetItem, QWidget, QMessageBox, QDialog)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
-            MainWindow.setObjectName(u"Matrices")
+            MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(610, 401)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -43,6 +43,7 @@ class Ui_MainWindow(object):
         self.tipoMatriz = QComboBox(self.frame)
         self.tipoMatriz.addItem("")
         self.tipoMatriz.addItem("")
+        self.tipoMatriz.addItem("")
         self.tipoMatriz.setObjectName(u"tipoMatriz")
         self.tipoMatriz.setGeometry(QRect(430, 30, 171, 31))
         font = QFont()
@@ -59,13 +60,10 @@ class Ui_MainWindow(object):
         self.aplicarMatriz = QPushButton(self.frame)
         self.aplicarMatriz.setObjectName(u"aplicarMatriz")
         self.aplicarMatriz.setGeometry(QRect(430, 70, 171, 31))
-        self.aplicarMatriz.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
+        self.aplicarMatriz.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;\n}"
-"QPushButton:hover {\n"
-"background-color: #a49bb0;\n"
-                                          "}\n")
+"border-radius: 10px;")
         self.tablaMatriz = QTableWidget(self.frame)
         if (self.tablaMatriz.columnCount() < 3):
             self.tablaMatriz.setColumnCount(3)
@@ -112,42 +110,36 @@ class Ui_MainWindow(object):
         self.tablaMatriz.horizontalHeader().setCascadingSectionResizes(False)
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(40, 330, 131, 31))
+        self.label_6.setGeometry(QRect(100, 330, 131, 31))
         self.label_6.setLayoutDirection(Qt.LeftToRight)
         self.label_6.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 900 15pt \"Segoe UI Black\";")
         self.label_6.setAlignment(Qt.AlignCenter)
         self.resolverGauss = QPushButton(self.frame)
         self.resolverGauss.setObjectName(u"resolverGauss")
-        self.resolverGauss.setGeometry(QRect(180, 330, 91, 31))
-        self.resolverGauss.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
+        self.resolverGauss.setGeometry(QRect(280, 330, 91, 31))
+        self.resolverGauss.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;\n}"
-"QPushButton:hover {\n"
-"background-color: #a49bb0;\n"
-                                          "}\n")
+"border-radius: 10px;")
         self.resolverGaussJordan = QPushButton(self.frame)
         self.resolverGaussJordan.setObjectName(u"resolverGaussJordan")
-        self.resolverGaussJordan.setGeometry(QRect(280, 330, 121, 31))
-        self.resolverGaussJordan.setStyleSheet(u"QPushButton{\nbackground-color:rgb(99, 89, 133);\n"                
+        self.resolverGaussJordan.setGeometry(QRect(400, 330, 121, 31))
+        self.resolverGaussJordan.setStyleSheet(u"background-color:rgb(99, 89, 133);\n"
 "font: 900 12pt \"Segoe UI Black\";\n"
 "color: rgb(255, 255, 255);\n"
-"border-radius: 10px;\n}"
-"QPushButton:hover {\n"
-"background-color: #a49bb0;\n"
-                                          "}\n")
+"border-radius: 10px;")
         
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
         self.retranslateUi(MainWindow)
         #Conexión de botones
+        self.resolverGaussJordan.clicked.connect(self.resolverGauss_Jordan)
         self.aplicarMatriz.clicked.connect(self.actualizarTabla)
         QMetaObject.connectSlotsByName(MainWindow)
-        
+
         # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -155,7 +147,7 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Seleccione el tipo de matriz:", None))
         self.tipoMatriz.setItemText(0, QCoreApplication.translate("MainWindow", u"2 X 2", None))
         self.tipoMatriz.setItemText(1, QCoreApplication.translate("MainWindow", u"3 X 3", None))
-
+        self.tipoMatriz.setItemText(2, QCoreApplication.translate("MainWindow", u"4 X 4", None))
         self.aplicarMatriz.setText(QCoreApplication.translate("MainWindow", u"Aplicar", None))
         ___qtablewidgetitem = self.tablaMatriz.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"X1", None));
@@ -167,15 +159,12 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Eq 1", None));
         ___qtablewidgetitem4 = self.tablaMatriz.verticalHeaderItem(1)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Eq 2", None));
-
         __sortingEnabled = self.tablaMatriz.isSortingEnabled()
         self.tablaMatriz.setSortingEnabled(False)
         self.tablaMatriz.setSortingEnabled(__sortingEnabled)
-
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Resolver por:", None))
         self.resolverGauss.setText(QCoreApplication.translate("MainWindow", u"Gauss", None))
         self.resolverGaussJordan.setText(QCoreApplication.translate("MainWindow", u"Gauss-Jordan", None))
-        
 
     def actualizarTabla(self):
         tipo = self.tipoMatriz.currentIndex()
@@ -205,17 +194,68 @@ class Ui_MainWindow(object):
         # Configurar los encabezados de las filas
         for i in range(self.tablaMatriz.rowCount()):
             self.tablaMatriz.setVerticalHeaderItem(i, QTableWidgetItem(f"Eq {i + 1}"))
+    def resolverGauss_Jordan(self):
+        # Obtener los coeficientes de la tabla
+        filas = self.tablaMatriz.rowCount()
+        columnas = self.tablaMatriz.columnCount()
+        matriz = []
+        for i in range(filas):
+            fila = []
+            for j in range(columnas):
+                item = self.tablaMatriz.item(i, j)
+                if item and item.text():
+                    try:
+                        valor = float(item.text())
+                    except ValueError:
+                        QMessageBox.warning(None, "Error", "Por favor, ingrese solo números.")
+                        return
+                    fila.append(valor)
+                else:
+                    QMessageBox.warning(None, "Error", "Complete todos los campos de la matriz.")
+                    return
+            matriz.append(fila)
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-    
+        # Inicializar listas para las iteraciones y pasos
+        iteraciones = []
+        pasos = []
 
+        # Implementar el método Gauss-Jordan
+        n = len(matriz[0]) - 1  # Número de variables
+        for i in range(n):
+            # Verificar que el pivote no sea cero
+            if matriz[i][i] == 0:
+                QMessageBox.warning(None, "Error", f"El pivote en la fila {i+1} es cero, no se puede continuar.")
+                return
+            # Hacer el pivote igual a 1
+            pivote = matriz[i][i]
+            matriz[i] = [elemento / pivote for elemento in matriz[i]]
+            pasos.append(f"F{i+1} = F{i+1} / {pivote}")
+            iteraciones.append([fila[:] for fila in matriz])
+            # Hacer ceros en la columna i
+            for j in range(filas):
+                if j != i:
+                    factor = matriz[j][i]
+                    matriz[j] = [elem_j - factor * elem_i for elem_j, elem_i in zip(matriz[j], matriz[i])]
+                    pasos.append(f"F{j+1} = F{j+1} - ({factor}) * F{i+1}")
+                    iteraciones.append([fila[:] for fila in matriz])
+        from ui_pasos import Ui_Form
+        MainWindow.close()
+        dialogo = QDialog()
+        ui = Ui_Form()
+        ui.setupUi(dialogo)
+        ui.mostrar_pasos(iteraciones, pasos)
+        dialogo.exec()
+
+    class MainWindow(QMainWindow):
+        def __init__(self):
+            super(MainWindow, self).__init__()
+            self.ui = Ui_MainWindow()
+            self.ui.setupUi(self)
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec())
