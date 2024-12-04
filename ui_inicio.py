@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'inicioeadxAV.ui'
+## Form generated from reading UI file 'iniciowOlXKZ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.3
 ##
@@ -17,20 +17,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QMainWindow,
     QPushButton, QSizePolicy, QStatusBar, QWidget)
-import rc_iconos
+import iconos
 import ui_ingresarmatriz
 import ui_ingresarecuacion
-
+import ui_ingresarintegral
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(689, 590)
+        MainWindow.resize(689, 679)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        self.frame.setGeometry(QRect(0, 0, 691, 611))
+        self.frame.setGeometry(QRect(0, 0, 691, 661))
         self.frame.setStyleSheet(u"background-color: rgb(24, 18, 43);")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -65,27 +65,43 @@ class Ui_MainWindow(object):
         self.label_3.setAlignment(Qt.AlignCenter)
         self.label_4 = QLabel(self.frame)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(0, 480, 691, 41))
+        self.label_4.setGeometry(QRect(0, 440, 691, 41))
         self.label_4.setLayoutDirection(Qt.LeftToRight)
         self.label_4.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "font: 900 14pt \"Segoe UI Black\";")
         self.label_4.setAlignment(Qt.AlignCenter)
         self.matrices = QPushButton(self.frame)
         self.matrices.setObjectName(u"matrices")
-        self.matrices.setGeometry(QRect(290, 380, 111, 101))
+        self.matrices.setGeometry(QRect(290, 340, 111, 101))
         self.matrices.setStyleSheet(u"")
         icon1 = QIcon()
         icon1.addFile(u":/icons/matrices.png", QSize(), QIcon.Normal, QIcon.Off)
         self.matrices.setIcon(icon1)
         self.matrices.setIconSize(QSize(100, 100))
+        self.integrales = QPushButton(self.frame)
+        self.integrales.setObjectName(u"integrales")
+        self.integrales.setGeometry(QRect(290, 480, 111, 101))
+        self.integrales.setStyleSheet(u"")
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/integral.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.integrales.setIcon(icon2)
+        self.integrales.setIconSize(QSize(100, 100))
+        self.label_5 = QLabel(self.frame)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(0, 580, 691, 41))
+        self.label_5.setLayoutDirection(Qt.LeftToRight)
+        self.label_5.setStyleSheet(u"color: rgb(255, 255, 255);\n"
+"font: 900 14pt \"Segoe UI Black\";")
+        self.label_5.setAlignment(Qt.AlignCenter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.matrices.clicked.connect(self.abrirMatrices)
         self.ecuaciones.clicked.connect(self.abrirEcuaciones)
+        self.matrices.clicked.connect(self.abrirMatrices)
+        self.integrales.clicked.connect(self.abrirIntegrales)
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -97,7 +113,10 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Calcular raices de ecuaciones", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Resolver sistemas de ecuaciones (matrices)", None))
         self.matrices.setText("")
+        self.integrales.setText("")
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Resolver integrales", None))
     # retranslateUi
+ 
     def abrirMatrices(self):
         self.ventana = QMainWindow()
         self.ui = ui_ingresarmatriz.Ui_MainWindow()
@@ -107,6 +126,11 @@ class Ui_MainWindow(object):
     def abrirEcuaciones(self):
         self.ventana = ui_ingresarecuacion.MainWindow()
         self.ui = ui_ingresarecuacion.Ui_MainWindow()
+        self.ventana.show()
+
+    def abrirIntegrales(self):
+        self.ventana = ui_ingresarintegral.MainWindow()
+        self.ui = ui_ingresarintegral.Ui_MainWindow()
         self.ventana.show()
 
 #Main method
