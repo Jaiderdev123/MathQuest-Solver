@@ -62,7 +62,7 @@ class Ui_Form(object):
         self.label_6.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.pasosLabel = QLabel(self.frame)
         self.pasosLabel.setObjectName(u"pasosLabel")
-        self.pasosLabel.setGeometry(QRect(80, 260, 381, 31))
+        self.pasosLabel.setGeometry(QRect(80, 260, 381, 50))
         self.pasosLabel.setStyleSheet(u"background-color: rgb(68, 60, 104);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 900 15pt \"Segoe UI Black\";\n"
@@ -128,7 +128,8 @@ class Ui_Form(object):
         self.label.setText(QCoreApplication.translate("Form", u" Solución:", None))
         self.botonRegresar.setText("")
 
-    def mostrar_pasos(self, iteraciones, pasos):
+    def mostrar_pasos(self, iteraciones, pasos, metodo):
+        self.metodo = metodo
         self.iteraciones = iteraciones
         self.pasos = pasos
         self.indice = 0
@@ -139,6 +140,7 @@ class Ui_Form(object):
             matriz = self.iteraciones[self.indice]
             paso = self.pasos[self.indice]
             self.pasosLabel.setText(paso)
+            # Actualizar tabla
             filas = len(matriz)
             columnas = len(matriz[0])
             self.tablaMatriz.setRowCount(filas)
@@ -148,15 +150,23 @@ class Ui_Form(object):
                     self.tablaMatriz.setItem(i, j, QTableWidgetItem(str(matriz[i][j])))
 
     def siguiente_paso(self):
-        if self.indice < len(self.iteraciones) - 1:
-            self.indice += 1
-            self.mostrar_paso()
-            self.resultado = []
-            for i in range(len(self.iteraciones[self.indice])):
-                self.resultado.append(self.iteraciones[self.indice][i][-1])
+        if self.metodo == "Gauss-Jordan":
+            if self.indice < len(self.iteraciones) - 1:
+                self.indice += 1
+                self.mostrar_paso()
+                self.resultado = []
+                for i in range(len(self.iteraciones[self.indice])):
+                    self.resultado.append(self.iteraciones[self.indice][i][-1])
+            else:
+                self.enviar_resultados(self.resultado)
         else:
-            self.enviar_resultados(self.resultado)
-    
+            if self.indice < len(self.iteraciones) - 1:
+                self.indice += 1
+                self.mostrar_paso()
+                self.resultado = []
+                for i in range(len(self.iteraciones[self.indice])):
+                    self.resultado.append(self.iteraciones[self.indice][i][-1])
+        
     def anterior_paso(self):
         if self.indice > 0:
             self.indice -= 1
@@ -172,7 +182,6 @@ class Ui_Form(object):
         self.ventanaSolucion.raise_() 
         self.ventanaSolucion.activateWindow()
         self.ventanaSolucion.show()
-        self.botonSiguiente.setEnabled(False)
 #Main method
 if __name__ == "__main__":
     import sys

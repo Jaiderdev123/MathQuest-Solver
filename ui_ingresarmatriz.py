@@ -139,6 +139,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.resolverGaussJordan.clicked.connect(self.resolverGauss_Jordan)
         self.aplicarMatriz.clicked.connect(self.actualizarTabla)
+        self.resolverGauss.clicked.connect(self.resolver_Gauss)
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -200,7 +201,80 @@ class Ui_MainWindow(object):
         # Configurar los encabezados de las filas
         for i in range(self.tablaMatriz.rowCount()):
             self.tablaMatriz.setVerticalHeaderItem(i, QTableWidgetItem(f"Eq {i + 1}"))
+    
+    def resolver_Gauss(self):
+        self.metodo = "Gauss"
+        # Obtener los coeficientes de la tabla
+        filas = self.tablaMatriz.rowCount()
+        columnas = self.tablaMatriz.columnCount()
+        matriz = []
+        for i in range(filas):
+            fila = []
+            for j in range(columnas):
+                item = self.tablaMatriz.item(i, j)
+                if item and item.text():
+                    try:
+                        valor = float(item.text())
+                    except ValueError:
+                        QMessageBox.warning(None, "Error", "Por favor, ingrese solo números.")
+                        return
+                    fila.append(valor)
+                else:
+                    QMessageBox.warning(None, "Error", "Complete todos los campos de la matriz.")
+                    return
+            matriz.append(fila)
+    
+        # Inicializar listas para las iteraciones y pasos
+        iteraciones = []
+        pasos = []
+    
+        # Implementar el método de Gauss (eliminación hacia adelante)
+        n = len(matriz)
+        for k in range(n - 1):
+            # Verificar que el pivote no sea cero
+            if matriz[k][k] == 0:
+                # Buscar una fila para intercambiar
+                for i in range(k + 1, n):
+                    if matriz[i][k] != 0:
+                        matriz[k], matriz[i] = matriz[i], matriz[k]
+                        pasos.append(f"Intercambiar F{k + 1} con F{i + 1}")
+                        iteraciones.append([fila[:] for fila in matriz])
+                        break
+                else:
+                    QMessageBox.warning(None, "Error", f"No se puede continuar, el pivote en la fila {k + 1} es cero.")
+                    return
+    
+            for i in range(k + 1, n):
+                factor = matriz[i][k] / matriz[k][k]
+                for j in range(k, columnas):
+                    matriz[i][j] -= factor * matriz[k][j]
+                paso = f"F{i + 1} = F{i + 1} - ({factor}) * F{k + 1}"
+                pasos.append(paso)
+                iteraciones.append([fila[:] for fila in matriz])
+    
+        # Sustitución hacia atrás
+        soluciones = [0 for _ in range(n)]
+        for i in range(n - 1, -1, -1):
+            if matriz[i][i] == 0:
+                QMessageBox.warning(None, "Error", f"No se puede continuar, el pivote en la fila {i + 1} es cero.")
+                return
+            suma = sum(matriz[i][j] * soluciones[j] for j in range(i + 1, n))
+            soluciones[i] = (matriz[i][-1] - suma) / matriz[i][i]
+            paso = f"X{i + 1} = ({matriz[i][-1]} - {suma}) / {matriz[i][i]} = {soluciones[i]}"
+            pasos.append(paso)
+            # Agregar la matriz actual (opcional)
+            iteraciones.append([fila[:] for fila in matriz])
+    
+        # Enviar iteraciones y pasos al módulo ui_pasos
+        from ui_pasos import Ui_Form
+        dialogo = QDialog()
+        ui = Ui_Form()
+        ui.setupUi(dialogo)
+        ui.mostrar_pasos(iteraciones, pasos, self.metodo)
+        dialogo.exec()
+    
     def resolverGauss_Jordan(self):
+        self.metodo = "Gauss-Jordan"
         # Obtener los coeficientes de la tabla
         filas = self.tablaMatriz.rowCount()
         columnas = self.tablaMatriz.columnCount()
@@ -249,7 +323,7 @@ class Ui_MainWindow(object):
         dialogo = QDialog()
         ui = Ui_Form()
         ui.setupUi(dialogo)
-        ui.mostrar_pasos(iteraciones, pasos)
+        ui.mostrar_pasos(iteraciones, pasos, self.metodo)
         dialogo.exec()
 if __name__ == "__main__":
     import sys

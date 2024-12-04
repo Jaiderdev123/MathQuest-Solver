@@ -261,44 +261,6 @@ border-radius: 10px;</string>
       <string>Gauss-Jordan</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resolverCramer">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>330</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
-font: 900 12pt &quot;Segoe UI Black&quot;;
-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string>Cramer</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="resolverInversa">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>330</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgb(99, 89, 133);
-font: 900 12pt &quot;Segoe UI Black&quot;;
-color: rgb(255, 255, 255);
-border-radius: 10px;</string>
-     </property>
-     <property name="text">
-      <string>Inversa</string>
-     </property>
-    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

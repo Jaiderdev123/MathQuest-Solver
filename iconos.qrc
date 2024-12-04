@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>integralsigno.png</file>
     <file>volver.png</file>
     <file>regresar.png</file>
     <file>siguiente.png</file>
