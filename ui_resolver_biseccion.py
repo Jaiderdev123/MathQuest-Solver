@@ -14,16 +14,19 @@ from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+    QPalette, QPixmap, QRadialGradient, QTransform, QDoubleValidator)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QStatusBar,
-    QWidget)
-from sympy import (parse_expr, sympify, simplify, evalf, symbols, sstr, sin, cos, 
+    QWidget, QDialog)
+from sympy import (parse_expr, sympify, simplify, evalf, symbols, sstr, N, Rational,sin, cos, 
 tan, cot, csc, sec, asin, acos, atan, acot, asin, 
 acos, atan, acot, Eq, solve, ln, pi)
 from sympy.abc import x
 import iconos
 import ui_ingresarecuacion
+import ui_intervalo_invalido
+from ui_pasos_biseccion import Ui_Form, Widget
+from ui_solucion_biseccion import Ui_Form_Solucion, WidgetSolucion
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -101,7 +104,7 @@ class Ui_MainWindow(object):
         self.a_intervalo.setObjectName(u"a_intervalo")
         self.a_intervalo.setGeometry(QRect(412, 200, 51, 41))
         self.a_intervalo.setStyleSheet(u"background-color: white;\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
+"font: 900 10pt \"Segoe UI Black\";\n"
 "border-radius: 10px;\n"
 "color: black")
         self.label_5 = QLabel(self.frame)
@@ -129,7 +132,7 @@ class Ui_MainWindow(object):
         self.b_intervalo.setObjectName(u"b_intervalo")
         self.b_intervalo.setGeometry(QRect(490, 200, 51, 41))
         self.b_intervalo.setStyleSheet(u"background-color: white;\n"
-"font: 900 12pt \"Segoe UI Black\";\n"
+"font: 900 10pt \"Segoe UI Black\";\n"
 "border-radius: 10px;\n"
 "color: black")
         self.label_8 = QLabel(self.frame)
@@ -173,9 +176,21 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.volver_bt.clicked.connect(self.volver)
         ecuacion_mostrar = sstr(ecuacion)
-        self.ui.ecuacionDP.setText(ecuacionDP)
+        self.ecuacionDP = ecuacionDP
+        self.ui.ecuacionDP.setText(self.ecuacionDP)
         self.ui.ecuacionDP.setReadOnly(True)
         self.ui.ecuacionDP.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        error_validator = QDoubleValidator(0.0001, 999.0, 4, self)
+        error_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
+        self.ui.error.setValidator(error_validator)
+        
+        interval_validator = QDoubleValidator(-100000, 100000, 3)
+        interval_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
+        self.ui.a_intervalo.setValidator(interval_validator)
+        self.ui.b_intervalo.setValidator(interval_validator)
+        
+        self.ui.resolver_bt.clicked.connect(lambda: self.resolver(ecuacion))
 
     def volver(self):
         self.ventana = ui_ingresarecuacion.MainWindow()
@@ -183,10 +198,169 @@ class MainWindow(QMainWindow):
         self.ventana.show()
         self.close()
 
+    def resolver(self, ecuacion):
+        self.verificar_intervalo(ecuacion)
+
+    def verificar_intervalo(self, ecuacion):
+        a = float(self.ui.a_intervalo.text())
+        b = float(self.ui.b_intervalo.text())
+        if a < b:
+            print(f"Ecuacion: {ecuacion}")
+            self.function = ecuacion.lhs - ecuacion.rhs
+            print(f"Funcion: {self.function}")
+            f_a = self.function.subs(x, a)
+            f_b = self.function.subs(x, b)
+            print(f_a, f_b)
+            interval_evaluation = f_a * f_b
+            print(f"La solución está en el intervalo [{a}, {b}] ?: {interval_evaluation}")
+            if interval_evaluation <= 0:
+                if f_a == 0:
+                    print(f"La raiz es {a}")
+                    # self.ventana = ui_raiz.MainWindow(ecuacion, a)
+                    # self.ui = ui_raiz.Ui_MainWindow()
+                    # self.ventana.show()
+                    # self.close()
+                elif f_b == 0:
+                    print(f"La raiz es {b}")
+                    # self.ventana = ui_raiz.MainWindow(ecuacion, b)
+                    # self.ui = ui_raiz.Ui_MainWindow()
+                    # self.ventana.show()
+                    # self.close()
+                else:
+                    print("La raíz se encuentra en el intervalo")
+                    self.solucion()
+                    # self.ventana = ui_resolver_biseccion.MainWindow(ecuacion, a, b)
+                    # self.ui = ui_resolver_biseccion.Ui_MainWindow()
+                    # self.ventana.show()
+                    # self.close()
+            else:
+                self.ingresar_intervalo = ui_intervalo_invalido.Dialog(True)
+                self.ingresar_intervalo.exec()
+                self.ui.a_intervalo.setFocus()
+        else:
+            self.ingresar_intervalo = ui_intervalo_invalido.Dialog(False)
+            self.ingresar_intervalo.exec()
+            self.ui.a_intervalo.setFocus()
+
+    def solucion(self):
+        error_achieved = False
+        pasos = []
+        iteration = 0
+        print("Error deseado actual: ", self.ui.error.text())
+        
+        while not error_achieved:
+            tipo_descripcion = 0
+            error = None
+            if iteration == 0:
+                a = float(self.ui.a_intervalo.text())
+                b = float(self.ui.b_intervalo.text())
+                
+            if iteration > 0:
+                if pasos[iteration - 1].fa_fxr < 0:
+                    a = pasos[iteration - 1].a
+                    b = pasos[iteration - 1].xr
+                    tipo_descripcion = 1
+                elif pasos[iteration - 1].fa_fxr > 0:
+                    a = pasos[iteration - 1].xr
+                    b = pasos[iteration - 1].b
+                    tipo_descripcion = 2
+                else:
+                    error_achieved = True
+                    descripcion = "Se encontró la solución exacta"
+                    break
+                error = (abs((b - a) / 2))*100
+                error = N(error, 4)
+            
+
+            xr = (a + b) / 2
+            f_a = self.function.subs(x, a)
+            f_b = self.function.subs(x, b)
+            f_xr = self.function.subs(x, xr)
+            fa_fxr = f_a * f_xr
+
+            
+
+            if iteration == 0:
+                print("Escribiendo descripcion para iteración 1")
+                descripcion = f"""Se ubica el extremo inferior ({a}) y el superior del intervalo ({b}) en las columnas a y b respectivamente.\n
+Luego, se calcula el punto medio entre estos dos puntos con la formula (a+b)/2 y se ubica en la columna Xr. En este caso es {xr}.\n
+Ahora, se calcula el valor de la ecuacion en el punto a, b y xr y se ubican en las columnas f(a), f(b) y f(Xr) respectivamente.\n
+En este caso, estos valores son {f_a}, {f_b} y {f_xr} respectivamente.\n
+Además, se calcula el producto f(a)*f(Xr) y se ubica en la columna f(a)*f(Xr). En este caso es {fa_fxr}.\n
+Ya que esta es la primera iteración, no se coloca nada en la columna error.
+                """
+
+            if iteration > 0:
+                print(f"Escribiendo descripcion para iteración {iteration+1}")
+                if tipo_descripcion == 1:
+                    descripcion = f"""En este caso, el producto f(a)*f(xr) en la anterior fila es negativo, entonces se ubica el mismo valor de a ({a}) de la fila anterior en la columna a esta fila y el valor de Xr ({xr}) de la anterior fila en la columna b de esta fila.
+Luego, se calcula de nuevo el punto medio entre estos dos puntos con la formula (a+b)/2 y se ubica en la columna xr. En este caso es {xr}.\n
+Ahora, se calcula el valor de la ecuacion en el punto a, b y xr y se ubican en las columnas f(a), f(b) y f(xr) respectivamente.\n
+Para esta fila dichos valores son {f_a}, {f_b} y {f_xr} respectivamente.\n
+Nuevamente se calcula el producto f(a)*f(xr) y se ubica en la columna f(a)*f(Xr). En este caso es {fa_fxr}.
+Se calcula el error con la formula |b-a|/2 como {(abs((b-a)/2))*100} y se ubica en la columna error. En este caso es {error}
+                """
+
+                elif tipo_descripcion == 2:
+                    descripcion = f"""En este caso, el producto f(a)*f(xr) en la anterior fila es positivo, entonces se ubica el valor de Xr ({xr}) de la fila anterior en la columna a de esta fila y el mismo valor de b ({b}) de la anterior fila en la columna b de esta fila.
+Luego, se calcula de nuevo el punto medio entre estos dos puntos con la formula (a+b)/2 y se ubica en la columna xr. En este caso es {xr}.\n
+Ahora, se calcula el valor de la ecuacion en el punto a, b y xr y se ubican en las columnas f(a), f(b) y f(xr) respectivamente.\n
+Para esta fila dichos valores son {f_a}, {f_b} y {f_xr} respectivamente.\n
+Nuevamente se calcula el producto f(a)*f(xr) y se ubica en la columna f(a)*f(Xr). En este caso es {fa_fxr}.
+Se calcula el error con la formula |b-a|/2 como {(abs((b-a)/2))*100} y se ubica en la columna error. En este caso es {error}
+                """
+
+            print(f"Iteración actual: {iteration}")
+
+            a = N(a, 7)
+            b = N(b, 7) 
+            xr = N(xr, 7)
+            f_a = N(f_a, 7)
+            f_b = N(f_b, 7)
+            f_xr = N(f_xr, 7)
+            fa_fxr = N(fa_fxr, 7)
+            pasos.append(paso(iteration, a, b, xr, f_a, f_b, f_xr, fa_fxr, error, descripcion))
+            
+            if error != None:
+                if error < float(self.ui.error.text()):
+                    error_achieved = True
+                    descripcion = f"Se alcanzó el error deseado con un error de {error}% en la iteración {iteration+1}"
+                    break
+            iteration += 1
+
+        self.dialogo = QDialog()
+        self.ui = Ui_Form()
+        self.ui.setupUi(self.dialogo)
+        self.dialogo.setWindowModality(Qt.ApplicationModal)
+        self.ui.llenar_tabla(pasos, self.ecuacionDP, 0)
+        self.dialogo.finished.connect(lambda: self.show_solution(descripcion, xr, error, iteration))
+        self.dialogo.show()
+
+    def show_solution(self, descripcion, xr, error, iteration):
+        self.solucion = QDialog()
+        self.ui = Ui_Form_Solucion()
+        self.ui.setupUi(self.solucion)
+        self.ui.llenar_datos(descripcion, str(xr), str(error), str(iteration+1))
+        self.solucion.show()
+
+class paso():
+    def __init__(self, number, a, b, xr, f_a, f_b, f_xr, fa_fxr, error=None, descripcion=""):
+        self.number = number
+        self.a = a
+        self.b = b
+        self.xr = xr
+        self.f_a = f_a
+        self.f_b = f_b
+        self.fa_fxr = fa_fxr
+        self.f_xr = f_xr
+        self.error = error
+        self.descripcion = descripcion
+        
+
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    ecuacion_prueba = Eq(x**3 - 3*x + 1, x)
-    window = MainWindow(ecuacion_prueba, "x=2")
+    ecuacion_prueba = Eq(x**2 - 4, 2)
+    window = MainWindow(ecuacion_prueba, "x^2-4=2")
     window.show()
     sys.exit(app.exec())

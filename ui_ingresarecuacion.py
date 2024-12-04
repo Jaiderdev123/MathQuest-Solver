@@ -538,6 +538,8 @@ class MainWindow(QMainWindow):
                 ecuacion = re.sub(r"sec⁻¹", r"1/acos", ecuacion)
         if "π" in ecuacion:
                 ecuacion = re.sub(r"π", r"pi", ecuacion)
+        if "e**" in ecuacion:
+                ecuacion = re.sub(r"e\*\*", r"exp", ecuacion)
         print(ecuacion)
         try:
             if '=' in ecuacion:
