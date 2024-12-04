@@ -213,7 +213,7 @@ class Ui_Form(object):
         ___qtablewidgetitem6 = self.tablaIteraciones.horizontalHeaderItem(6)
         ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"f(a)*f(Xr)", None));
         ___qtablewidgetitem7 = self.tablaIteraciones.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"E", None));
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"Ep", None));
 
         self.label_6.setText(QCoreApplication.translate("Form", u"Paso 1: ", None))
         self.bt_anterior.setText("")
@@ -274,7 +274,6 @@ class Widget(QWidget):
 
     # Fill table with data up to the current iteration
         for i in range(self.iteration + 1):
-            print(f"Filling row: {i}")
             self.ui.tablaIteraciones.setItem(i, 0, QTableWidgetItem(str(self.pasos[i].a)))
             self.ui.tablaIteraciones.setItem(i, 1, QTableWidgetItem(str(self.pasos[i].b)))
             self.ui.tablaIteraciones.setItem(i, 2, QTableWidgetItem(str(self.pasos[i].xr)))
