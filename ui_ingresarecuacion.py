@@ -27,6 +27,8 @@ import re
 import math
 import rc_iconos
 import ui_ecuacion_invalida
+import ui_resolver_biseccion
+import ui_resolver_FP
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -483,7 +485,11 @@ class MainWindow(QMainWindow):
     def resolverBiseccion(self):
         expresion_convertida = self.convertir_expresion()
         if expresion_convertida != None:
-             print("Ahora se resolverá por el método de bisección")
+              print("Ahora se resolverá por el método de bisección")
+              self.ventana = ui_resolver_biseccion.MainWindow(expresion_convertida, self.ui.ecuacion.text())
+              self.ui = ui_resolver_biseccion.Ui_MainWindow()
+              self.ventana.show()
+              self.close()
         else:
             self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
             self.ingresar_ecuacion.exec()
@@ -492,7 +498,11 @@ class MainWindow(QMainWindow):
     def resolverFP(self):
         expresion_convertida = self.convertir_expresion()
         if expresion_convertida != None:
-             print("Ahora se resolverá por el método de falsa posición")
+            print("Ahora se resolverá por el método de falsa posición")
+            self.ventana = ui_resolver_FP.MainWindow(expresion_convertida, self.ui.ecuacion.text())
+            self.ui = ui_resolver_FP.Ui_MainWindow()
+            self.ventana.show()
+            self.close()
         else:
             self.ingresar_ecuacion = ui_ecuacion_invalida.MainWindow()
             self.ingresar_ecuacion.exec()
@@ -533,6 +543,8 @@ class MainWindow(QMainWindow):
                 ecuacion = re.sub(r"sec⁻¹", r"1/acos", ecuacion)
         if "π" in ecuacion:
                 ecuacion = re.sub(r"π", r"pi", ecuacion)
+        if "e**" in ecuacion:
+                ecuacion = re.sub(r"e\*\*", r"exp", ecuacion)
         print(ecuacion)
         try:
             if '=' in ecuacion:
@@ -573,7 +585,7 @@ class MainWindow(QMainWindow):
         #     self.ingresar_ecuacion.exec()
         #     self.ui.ecuacion.setText("")
             
-            
+
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
