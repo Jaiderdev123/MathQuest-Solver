@@ -517,7 +517,6 @@ class MainWindow(QMainWindow):
             if not lim_inf or not lim_sup:
                 QMessageBox.warning(None, "Error", "Por favor ingrese los límites de integración")
                 return
-
             # Validar que los límites sean números
             try:
                 lim_inf = float(lim_inf)
@@ -553,9 +552,6 @@ class MainWindow(QMainWindow):
             # Convertir la expresión a formato sympy
             expr = parse_expr(ecuacion)
             expr = sympify(expr)
-
-            # Aquí podrías agregar el código para calcular la integral
-            # usando los límites lim_inf y lim_sup
 
             return expr
 
