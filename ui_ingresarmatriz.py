@@ -319,7 +319,6 @@ class Ui_MainWindow(object):
                     pasos.append(f"F{j+1} = F{j+1} - ({factor}) * F{i+1}")
                     iteraciones.append([fila[:] for fila in matriz])
         from ui_pasos import Ui_Form
-        MainWindow.close()
         dialogo = QDialog()
         ui = Ui_Form()
         ui.setupUi(dialogo)
