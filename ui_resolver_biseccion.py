@@ -181,14 +181,14 @@ class MainWindow(QMainWindow):
         self.ui.ecuacionDP.setReadOnly(True)
         self.ui.ecuacionDP.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        error_validator = QDoubleValidator(0.0001, 999.0, 4, self)
-        error_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
-        self.ui.error.setValidator(error_validator)
-        
-        interval_validator = QDoubleValidator(-100000, 100000, 3)
-        interval_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
-        self.ui.a_intervalo.setValidator(interval_validator)
-        self.ui.b_intervalo.setValidator(interval_validator)
+        #   error_validator = QDoubleValidator(0.0001, 999.0, 4, self)
+        #   error_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
+        #   self.ui.error.setValidator(error_validator)
+        #   
+        #   interval_validator = QDoubleValidator(-100000, 100000, 3)
+        #   interval_validator.setNotation(QDoubleValidator.Notation.StandardNotation)
+        #   self.ui.a_intervalo.setValidator(interval_validator)
+        #   self.ui.b_intervalo.setValidator(interval_validator)
         
         self.ui.resolver_bt.clicked.connect(lambda: self.resolver(ecuacion))
 
