@@ -101,6 +101,7 @@ class Ui_Form(object):
         #Conexion de botones
         self.botonSiguiente.clicked.connect(self.siguiente_paso)
         self.botonAnterior.clicked.connect(self.anterior_paso)
+        self.botonRegresar.clicked.connect(Form.close)
 
 
     def retranslateUi(self, Form):
@@ -128,12 +129,14 @@ class Ui_Form(object):
         self.label.setText(QCoreApplication.translate("Form", u" Solución:", None))
         self.botonRegresar.setText("")
 
-    def mostrar_pasos(self, iteraciones, pasos, metodo):
+    def mostrar_pasos(self, iteraciones, pasos, metodo, tipo_matriz, soluciones_resultados):
         self.metodo = metodo
         self.iteraciones = iteraciones
         self.pasos = pasos
         self.indice = 0
         self.mostrar_paso()
+        self.tipo_matriz = tipo_matriz
+        self.soluciones_resultados = soluciones_resultados
 
     def mostrar_paso(self):
         if self.indice < len(self.iteraciones):
@@ -164,8 +167,14 @@ class Ui_Form(object):
                 self.indice += 1
                 self.mostrar_paso()
                 self.resultado = []
-                for i in range(len(self.iteraciones[self.indice])):
-                    self.resultado.append(self.iteraciones[self.indice][i][-1])
+                # for i in range(len(self.iteraciones[self.indice])):
+                #     self.resultado.append(self.iteraciones[self.indice][i][-1])
+            else:
+                for i in range(self.tipo_matriz-1, -1, -1):
+                    print(self.soluciones_resultados[i])
+                    self.resultado.append(self.soluciones_resultados[i])
+                self.enviar_resultados(self.resultado)
+                
         
     def anterior_paso(self):
         if self.indice > 0:

@@ -227,9 +227,11 @@ class Ui_MainWindow(object):
         # Inicializar listas para las iteraciones y pasos
         iteraciones = []
         pasos = []
+        soluciones_resultados = []
     
         # Implementar el método de Gauss (eliminación hacia adelante)
         n = len(matriz)
+        tipo_matriz = n
         for k in range(n - 1):
             # Verificar que el pivote no sea cero
             if matriz[k][k] == 0:
@@ -262,6 +264,7 @@ class Ui_MainWindow(object):
             soluciones[i] = (matriz[i][-1] - suma) / matriz[i][i]
             paso = f"X{i + 1} = ({matriz[i][-1]} - {suma}) / {matriz[i][i]} = {soluciones[i]}"
             pasos.append(paso)
+            soluciones_resultados.append(soluciones[i])
             # Agregar la matriz actual (opcional)
             iteraciones.append([fila[:] for fila in matriz])
     
@@ -270,7 +273,7 @@ class Ui_MainWindow(object):
         dialogo = QDialog()
         ui = Ui_Form()
         ui.setupUi(dialogo)
-        ui.mostrar_pasos(iteraciones, pasos, self.metodo)
+        ui.mostrar_pasos(iteraciones, pasos, self.metodo, tipo_matriz, soluciones_resultados)
         dialogo.exec()
     
     def resolverGauss_Jordan(self):
